@@ -1,0 +1,88 @@
+services:
+  dough-handler:
+    build:
+      context: ./handlers/dough-handler
+      dockerfile: Dockerfile
+    ports:
+      - "80"
+    env_file:
+      - .env
+    networks:
+      - shared
+    deploy:
+      mode: replicated
+      replicas: 3
+
+  order-handler:
+    build:
+      context: ./handlers/order-handler
+      dockerfile: Dockerfile
+    ports:
+      - "80"
+    env_file:
+      - .env
+    networks:
+      - shared
+    deploy:
+      mode: replicated
+      replicas: 2
+
+  oven-handler:
+    build:
+      context: ./handlers/oven-handler
+      dockerfile: Dockerfile
+    ports:
+      - "80"
+    env_file:
+      - .env
+    networks:
+      - shared
+    deploy:
+      mode: replicated
+      replicas: 2
+
+  topping-handler:
+    build:
+      context: ./handlers/topping-handler
+      dockerfile: Dockerfile
+    ports:
+      - "80"
+    env_file:
+      - .env
+    networks:
+      - shared
+    deploy:
+      mode: replicated
+      replicas: 1
+
+  waiter-handler:
+    build:
+      context: ./handlers/waiter-handler
+      dockerfile: Dockerfile
+    ports:
+      - "80"
+    env_file:
+      - .env
+    networks:
+      - shared
+    deploy:
+      mode: replicated
+      replicas: 2
+
+  order-api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80"
+    env_file:
+      - .env
+    networks:
+      - shared
+    deploy:
+      mode: replicated
+      replicas: 1
+
+networks:
+  shared:
+    external: true
