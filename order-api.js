@@ -28,7 +28,7 @@ try {
     * Start prepare orders
     */
    await Promise.all((orders.map((v) => 
-   channel.sendToQueue("order.received", Buffer.from(JSON.stringify({v, startTime: startTime}))))));
+   channel.sendToQueue("order.received", Buffer.from(JSON.stringify({...v, startTime: startTime}))))));
 
     await channel.close();
     await connection.close();
